@@ -22,20 +22,22 @@ def getFloatInput(sPrompt):
 
 #Defining a median Process
 def getMedian(iEntries, sList):
-    iEntries = iEntries % 2
+    iRemainder = iEntries % 2
 # I used a Modulus to see if there was a remainder from an even number to see if the List of entries was even or odd
 
 # If the entries were even then the remainder would be 0
-    if iEntries == 0:
-        iMiddleEntryERS = len(sList) // 2
+    if iRemainder == 0:
+        iMiddleEntryERS = iEntries // 2
         # There is two middle number so I had to access both entries and to the math on the information in the correct entry placement to do the average of those Entries
-        iMedianERS = (sList[iMiddleEntryERS - 1] + sList[iMiddleEntryERS] ) // 2
+        iMedianERS = (sList[(iMiddleEntryERS - 1)] + sList[iMiddleEntryERS] ) / 2
 # If the remainder was to be one or more than the number is most likely odd
-    elif iEntries >= 1:
+    else:
+        iRemainder >= 1
         # I had to use integer division to match the needs of the index being an integer with not decimals to access the list
-        iMiddleEntryERS = len(sList) // 2
+        iMiddleEntryERS = iEntries // 2
         # Using the math to determine the index, i used the entry placement number to access the proper list entry
         iMedianERS = sList[iMiddleEntryERS]
+
     return iMedianERS
 
 # the main function that would access, and ask for all the needed information to process for the desired results.
@@ -45,30 +47,30 @@ def main():
     # staging the while loop to start
     sAgain = 'Y'
     # as long as the input isn't "no" then the loop would continue
-    while sAgain.upper() != 'N':
-        if sAgain.upper() == 'Y':
+    while sAgain != 'N':
+        if sAgain == 'Y':
             fSalesPriceERS = getFloatInput('Enter property sales value: ')
             festate_ValuesERS.append(fSalesPriceERS)
-            sAgain = input('Enter another value Y or N: ')
+            sAgain = input('Enter another value Y or N: ').upper()
     # if the input is anything other than "Y" or "N" then the loop will continue until the one that gets information or cuts the loop
         else:
-            sAgain = input('Enter another value Y or N: ')
+            sAgain = input('Enter another value Y or N: ').upper()
     #sorting the information because the place-holder is very important for math procedures and calling the right entries.
     festate_ValuesERS.sort()
     # the number of entries in the list
     iEntriesERS = len(festate_ValuesERS)
     # the minium numer or festate_ValuesERS[0] having that the list is sorted lowest to highest and not .reversed()
-    fMinERS = min(festate_ValuesERS)
+    fMinERS = festate_ValuesERS[0]
     # the maximum number or festate_ValuesERS[-1] having that the list is sorted lowest to highest and not .reversed()
-    fMaxERS = max(festate_ValuesERS)
+    fMaxERS = festate_ValuesERS[-1]
     # the sum of the list
     fSumERS = sum(festate_ValuesERS)
     # the average of the sum of the list divided by the entries
-    fAvgERS = (sum(festate_ValuesERS) / len(festate_ValuesERS))
+    fAvgERS = (fSumERS / len(festate_ValuesERS))
     # the median function which uses the entries and list as parameters
     fMedERS = getMedian(iEntriesERS, festate_ValuesERS)
     # the commission of .03 for the real estate agent
-    fComERS = (sum(festate_ValuesERS) * .03)
+    fComERS = fSumERS * .03
 
     # setting the parameter to 0 also to match the entry numbers of the list placement
     ivalueERS = 0
